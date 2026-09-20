@@ -1,0 +1,113 @@
+<section class="hero" id="home">
+    <div>
+        <p class="eyebrow">// EMBEDDED SYSTEMS · SOFTWARE · HARDWARE</p>
+        <h1>Mohamed Ali<br><em>Lawini</em></h1>
+        <h2>Embedded Software Engineer</h2>
+        <p class="lede">Embedded Software Engineer with professional experience in STM32CubeMX tooling and embedded
+            ecosystems, combined with hands-on experience in firmware, IoT, electronics, PCB design and hardware
+            prototyping.</p>
+        <div class="hero-actions"><a class="button primary" href="#projects">View Projects</a><a class="button"
+                href="assets/documents/Mohamed-Ali-Lawini-CV.pdf" download>Download CV</a></div>
+        <div class="profiles"><a href="https://github.com/dalilawini" target="_blank" rel="noopener">GitHub ↗</a><a
+                href="https://www.linkedin.com/in/dalilawini/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+    </div>
+    <aside class="terminal" aria-label="Engineering profile">
+        <div class="terminal-head"><span></span><span></span><span></span> engineering.profile</div>
+        <p><b>role</b> = Embedded Software Engineer</p>
+        <p><b>focus</b> = Firmware · Architecture · IoT</p>
+        <p><b>systems</b> = STM32 · ESP32 · Electronics</p>
+        <p><b>status</b> = Available for international opportunities</p>
+    </aside>
+</section>
+<section id="about" class="numbered-section">
+    <p class="eyebrow"><span class="section-number"></span>ABOUT</p>
+    <div class="split">
+        <h2>Software engineer<br>who understands <em>hardware.</em></h2>
+        <div>
+            <p>Since 2021, I have worked professionally on STM32CubeMX tooling and embedded ecosystems, including Java
+                development, code generation, debugging and long-term software evolution.</p>
+            <p>My hands-on practice extends to embedded C/C++, STM32, ESP32/ESP8266, IoT, wireless communication,
+                electronics, PCB design in Altium Designer, CNC manufacturing and hardware prototyping.</p>
+            <p class="muted">Interested in low-level embedded systems, firmware, embedded architecture, IoT and
+                technical leadership.</p>
+        </div>
+    </div>
+</section>
+<section id="experience" class="experience numbered-section">
+    <p class="eyebrow"><span class="section-number"></span>EXPERIENCE</p>
+    <div class="timeline">
+        <div class="period">2021 — Present</div>
+        <div>
+            <p class="eyebrow company-name">
+                <img class="company-logo" src="assets/images/actia.png" alt="ACTIA" />
+
+                ACTIA ENGINEERING SERVICES
+
+                <a class="company-link" href="https://www.actia.com/tunisie/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Visit ACTIA Tunisia (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 3h7v7m0-7-10 10M11 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2-2h12a2 2 0 0 0 2-2v-6" />
+                    </svg>
+                </a>
+            </p>
+            <h2>Embedded Software Engineer — STM32CubeMX @ STMicroelectronics</h2>
+            <p>Working on STM32CubeMX tools and embedded ecosystem features at a professional level. Responsibilities
+                include Java development, code-generation related features, bug analysis, complex issue investigation,
+                architecture decisions and long-term maintenance.</p>
+            <p>Contributed to an HSP feature spanning business logic, graphical interface, generated code and
+                integration with multiple tooling areas. This portfolio intentionally contains no proprietary code,
+                internal architecture or confidential material.</p>
+        </div>
+    </div>
+</section>
+<section id="projects" class="experience numbered-section">
+    <p class="eyebrow"><span class="section-number"></span>SELECTED WORK</p>
+    <div class="section-head">
+        <h2>Engineering case studies</h2>
+        <p>Real systems, workflows and technical decisions — structured for deeper inspection.</p>
+    </div>
+    <div class="projects"><app-project-card *ngFor="let project of projects" [project]="project" /></div>
+</section>
+<section id="skills" class="numbered-section">
+    <p class="eyebrow"><span class="section-number"></span>TECHNICAL TOOLKIT</p>
+    <h2>Built around systems, not buzzwords.</h2>
+    <div class="skills">
+        <article *ngFor="let group of skillGroups">
+            <h3>{{group[0]}}</h3>
+            <div><span *ngFor="let skill of group[1]">{{skill}}</span></div>
+        </article>
+    </div>
+</section>
+<section class="credentials">
+    <div>
+        <p class="eyebrow">EDUCATION</p>
+        <h3>Bac+5 Engineering Degree</h3>
+        <p>Electronics · Electrical Engineering · Automation<br>Tunisia</p>
+    </div>
+    <div>
+        <p class="eyebrow">CERTIFICATION</p>
+        <h3>ISTQB Certified Tester</h3>
+        <p>Foundation Level (CTFL) v4.0</p>
+    </div>
+</section>
+<section id="contact" class="contact numbered-section">
+    <p class="eyebrow"><span class="section-number"></span>CONTACT</p>
+    <h2>Let’s build <em>something.</em></h2>
+    <p>I am currently interested in international opportunities in embedded software, embedded systems and low-level
+        engineering.</p>
+<div>
+    <a href="mailto:Medalilawini@gmail.com">Medalilawini@gmail.com</a>
+
+    <a href="tel:+21658563226">+216 58 563 226</a>
+
+    <a href="https://www.linkedin.com/in/dalilawini/" target="_blank" rel="noopener">
+        LinkedIn ↗
+    </a>
+
+    <a href="https://github.com/dalilawini" target="_blank" rel="noopener">
+        GitHub ↗
+    </a>
+</div>
+
+</section>
+<footer>© {{ 2026 }} Mohamed Ali Lawini · Embedded Software Engineer</footer>

@@ -1,0 +1,31 @@
+<article>
+  <p class="eyebrow">PROBLEM</p>
+  <h2>Distributed environmental monitoring</h2>
+  <p>The system separates environmental sensing from the local display, allowing sensor nodes to collect measurements while an ESP32 gateway presents the current state.</p>
+</article>
+<article class="architecture">
+  <p class="eyebrow">SYSTEM ARCHITECTURE</p>
+  <h2>Acquisition, transport, presentation</h2>
+  <ol><li>DHT sensor samples environmental data.</li><li>An ESP8266 node packages a compact reading.</li><li>ESP-NOW carries the reading to the ESP32 gateway.</li><li>The gateway service updates the LVGL interface.</li></ol>
+</article>
+<article>
+  <p class="eyebrow">SENSOR NODE</p>
+  <h2>Focused data acquisition</h2>
+  <p>Each ESP8266 sensor node concentrates on reading its attached DHT sensor and communicating a clear payload, keeping sensing and interface concerns independent.</p>
+  <img src="/assets/projects/weather/hardware/sun3.png" alt="Weather monitoring hardware">
+</article>
+<article>
+  <p class="eyebrow">WIRELESS LINK</p>
+  <h2>ESP-NOW communication</h2>
+  <p>ESP-NOW is used as the local wireless link between nodes and gateway. Keeping payloads explicit and small makes the communication boundary easy to inspect and extend.</p>
+</article>
+<article>
+  <p class="eyebrow">GATEWAY SOFTWARE</p>
+  <h2>Responsive display updates</h2>
+  <p>The ESP32 gateway receives sensor events through a service layer, then updates the display without coupling radio handling directly to the visual presentation.</p>
+</article>
+<article>
+  <p class="eyebrow">RESULT</p>
+  <h2>Reusable embedded IoT pattern</h2>
+  <p>The resulting architecture provides a repeatable starting point for distributed sensing: acquisition at the edge, a lightweight wireless transport, and a dedicated local interface.</p>
+</article>
