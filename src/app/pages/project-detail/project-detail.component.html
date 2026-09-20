@@ -22,7 +22,7 @@
     </section>
 
     <section class="content">
-        <div *ngIf="projectContent; else contentStatus" class="project-content" [innerHTML]="projectContent"></div>
+        <div *ngIf="projectContent; else contentStatus" #projectContentHost class="project-content" [innerHTML]="projectContent"></div>
         <ng-template #contentStatus>
             <p class="content-status" *ngIf="contentLoadError; else loadingContent">The technical case study could not be loaded.</p>
             <ng-template #loadingContent><p class="content-status">Loading technical case study…</p></ng-template>
@@ -41,6 +41,8 @@
         </ng-container>
         <ng-template #noTutorial><h2>Video coming soon</h2></ng-template>
     </section>
+
+
 </ng-container>
 
 <ng-template #missing>
