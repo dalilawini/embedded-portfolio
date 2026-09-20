@@ -3,6 +3,18 @@
   <h2>Practical wireless embedded exploration</h2>
   <p>This collection brings together experiments with ESP32 Bluetooth, Bluetooth HID, nRF52832, HM-10 / CC2541 modules, and RF communication.</p>
 </article>
+<section class="diagram-section">
+  <p class="eyebrow">WIRELESS LANDSCAPE</p>
+  <h2>Embedded communication experiments</h2>
+  <div class="mermaid">
+flowchart LR
+    HOST[Embedded Host]
+    HOST --- ESP32[ESP32 Bluetooth]
+    HOST --- NRF[nRF52832]
+    HOST --- HM10[HM-10 / CC2541]
+    HOST --- RF[RF Communication]
+  </div>
+</section>
 <article>
   <p class="eyebrow">PROTOCOL CHOICE</p>
   <h2>Match the link to the interaction</h2>

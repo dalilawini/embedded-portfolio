@@ -3,6 +3,18 @@
   <h2>A visual workflow for embedded displays</h2>
   <p>The generator explores a desktop design workflow inspired by embedded GUI tools, with the goal of making display-interface composition more repeatable.</p>
 </article>
+<section class="diagram-section">
+  <p class="eyebrow">ARCHITECTURE</p>
+  <h2>Visual authoring to embedded output</h2>
+  <div class="mermaid">
+flowchart LR
+    USER[User] --> DESIGNER[JavaFX Designer]
+    DESIGNER --> MODEL[UI Component Model]
+    MODEL --> LAYOUT[Layout / Configuration]
+    LAYOUT --> GENERATOR[Code Generator]
+    GENERATOR --> OUTPUT[Embedded UI Output]
+  </div>
+</section>
 <article>
   <p class="eyebrow">UI COMPOSITION</p>
   <h2>Build screens from components</h2>

@@ -13,6 +13,23 @@
   <h2>CAM to CNC</h2>
   <ol><li>Prepare the PCB layout and manufacturing outputs.</li><li>Use FlatCAM to prepare toolpaths.</li><li>Machine the board on a CNC 3018 Pro.</li><li>Assemble components and verify the board during bring-up.</li></ol>
 </article>
+<section class="diagram-section">
+  <p class="eyebrow">MANUFACTURING WORKFLOW</p>
+  <h2>From requirement to tested hardware</h2>
+  <div class="mermaid">
+architecture-beta
+    group api(cloud)[API]
+    service db1(database)[DB1] in api
+    service db2(database)[DB2] in api
+    service db3(database)[DB3] in api
+    service mcp(server)[MCP] in api
+    db1:R --> L:mcp
+    db2:R --> L:mcp
+    db3:R --> L:mcp
+    align column db1 db2 db3
+    
+</div>
+</section>
 <article>
   <p class="eyebrow">ASSEMBLY & TESTING</p>
   <h2>Validate one stage at a time</h2>

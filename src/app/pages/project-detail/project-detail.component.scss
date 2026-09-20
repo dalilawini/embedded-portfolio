@@ -134,6 +134,31 @@
     grid-column: 1 / -1
 }
 
+:host ::ng-deep .project-content .diagram-section {
+    grid-column: 1 / -1;
+    background: #0d191c;
+    border: 1px solid #263a36;
+    padding: 27px;
+}
+
+:host ::ng-deep .project-content .diagram-section .mermaid {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #284139;
+    border-radius: 12px;
+    background: #071113;
+}
+
+:host ::ng-deep .project-content .diagram-section .mermaid svg {
+    display: block;
+    min-width: 560px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
 :host ::ng-deep .project-content h2 {
     font-size: 1.3rem;
     margin: 6px 0 15px
@@ -223,7 +248,63 @@
         grid-column: auto
     }
 
+    :host ::ng-deep .project-content .diagram-section {
+        grid-column: auto
+    }
+
+    :host ::ng-deep .project-content .diagram-section .mermaid {
+        padding: 14px
+    }
+
     .placeholder {
         min-height: 230px
     }
+}
+
+.schematic-section {
+    width: 100%;
+    margin: 80px auto;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 35px;
+}
+
+.section-header .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #3ecf9a;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: #9ca8a5;
+    line-height: 1.7;
+}
+
+.schematic-viewer {
+    width: 100%;
+    max-width: 1400px;
+    height: 750px;
+
+    margin: 0 auto;
+
+    background: #0d191c;
+
+    border: 1px solid #263a36;
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35);
 }

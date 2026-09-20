@@ -8,6 +8,18 @@
   <h2>Radio service to display service</h2>
   <ol><li>Receive sensor data over ESP-NOW.</li><li>Pass the reading through a gateway service.</li><li>Update the LVGL view with the latest state.</li></ol>
 </article>
+<section class="diagram-section">
+  <p class="eyebrow">SYSTEM ARCHITECTURE</p>
+  <h2>Sensor events to touchscreen interface</h2>
+  <div class="mermaid">
+flowchart TD
+    NODES[ESP-NOW Sensor Nodes] --> GATEWAY[ESP32 Gateway]
+    GATEWAY --> DATA[SensorData]
+    DATA --> DISPLAY[Display Manager]
+    DISPLAY --> UI[LVGL UI]
+    UI --> TOUCH[Touchscreen]
+  </div>
+</section>
 <article>
   <p class="eyebrow">INTERFACE</p>
   <h2>Touchscreen presentation with LVGL</h2>
