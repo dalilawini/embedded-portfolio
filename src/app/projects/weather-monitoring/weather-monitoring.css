@@ -1,12 +1,149 @@
 /*
- * This component is always rendered inside <app-project-detail>, whose
- * stylesheet already styles `.project-content`, `.diagram-section`,
- * `.mermaid`, `.demo`, `.placeholder`, etc. via `:host ::ng-deep`
- * (see project-detail.component.scss). Those rules pierce into this
- * component's DOM regardless of Angular's view encapsulation, so this
- * file previously duplicated all of them verbatim — that duplication has
- * been removed to avoid the two stylesheets drifting out of sync.
+ * Self-contained styles for <app-weather-monitoring>.
  *
- * Only add rules here if they are truly specific to this project's markup
- * and not already covered by the parent stylesheet.
+ * This component is rendered inside <app-project-detail> via a
+ * <router-outlet>, but Angular's view encapsulation means a *child*
+ * component's markup is never reachable by a parent's plain CSS rules
+ * (only :host ::ng-deep can pierce, and only downward from that same
+ * component). So this component owns every rule its own template needs,
+ * rather than depending on project-detail.component.scss to reach in.
+ *
+ * (Previously project-detail.component.scss carried a
+ * `:host ::ng-deep .project-content ...` block intended for content like
+ * this, plus a plain `.schematic-viewer` rule. Both have moved here: the
+ * `.project-content` wrapper class those rules targeted doesn't exist in
+ * this template, and `.schematic-viewer` is only ever used below, so
+ * neither rule ever actually applied from the parent stylesheet.)
  */
+
+:host {
+    display: block;
+}
+
+:host h2 {
+    font-size: 1.3rem;
+    margin: 6px 0 15px;
+}
+
+:host h3 {
+    margin: 18px 0 8px;
+    font-size: 1rem;
+}
+
+:host p,
+:host li {
+    color: #a9bbb4;
+    line-height: 1.7;
+    font-size: .9rem;
+}
+
+:host ul,
+:host ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+:host img {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    margin-top: 20px;
+    object-fit: cover;
+    border: 1px solid #284139;
+}
+
+:host pre {
+    overflow-x: auto;
+    padding: 16px;
+    background: #071113;
+    border: 1px solid #263a36;
+    color: #b4d0c5;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Each top-level <section> ("HARDWARE" / "SOFTWARE") is its own two-column
+   content grid, replacing the old .project-content wrapper. */
+.demo,
+.placeholder {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 48px 6vw;
+}
+
+.demo > h2,
+.placeholder > h2 {
+    grid-column: 1 / -1;
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.demo article,
+.placeholder article {
+    background: #0d191c;
+    border: 1px solid #263a36;
+    padding: 27px;
+}
+
+.architecture {
+    grid-column: 1 / -1;
+}
+
+.diagram-section {
+    grid-column: 1 / -1;
+    background: #0d191c;
+    border: 1px solid #263a36;
+    padding: 27px;
+}
+
+.diagram-section .mermaid {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #284139;
+    border-radius: 12px;
+    background: #071113;
+}
+
+.diagram-section .mermaid svg {
+    display: block;
+    min-width: 560px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.schematic-viewer {
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    margin: 0 auto;
+    background: #0d191c;
+    border: 1px solid #263a36;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 650px) {
+    .demo,
+    .placeholder {
+        grid-template-columns: 1fr;
+        margin: 32px 6vw;
+    }
+
+    .architecture,
+    .diagram-section {
+        grid-column: auto;
+    }
+
+    .diagram-section .mermaid {
+        padding: 14px;
+    }
+}

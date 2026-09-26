@@ -108,101 +108,10 @@
     margin: 0
 }
 
-.project-content,
 .content-status {
-    grid-column: 1 / -1
-}
-
-.content-status {
-    color: #a9bbb4;
-    margin: 0
-}
-
-:host ::ng-deep .project-content {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px
-}
-
-:host ::ng-deep .project-content article {
-    background: #0d191c;
-    border: 1px solid #263a36;
-    padding: 27px
-}
-
-:host ::ng-deep .project-content .architecture {
-    grid-column: 1 / -1
-}
-
-:host ::ng-deep .project-content .diagram-section {
     grid-column: 1 / -1;
-    background: #0d191c;
-    border: 1px solid #263a36;
-    padding: 27px;
-}
-
-:host ::ng-deep .project-content .diagram-section .mermaid {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #284139;
-    border-radius: 12px;
-    background: #071113;
-}
-
-:host ::ng-deep .project-content .diagram-section .mermaid svg {
-    display: block;
-    min-width: 560px;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-
-:host ::ng-deep .project-content h2 {
-    font-size: 1.3rem;
-    margin: 6px 0 15px
-}
-
-:host ::ng-deep .project-content h3 {
-    margin: 18px 0 8px;
-    font-size: 1rem
-}
-
-:host ::ng-deep .project-content p,
-:host ::ng-deep .project-content li {
     color: #a9bbb4;
-    line-height: 1.7;
-    font-size: .9rem
-}
-
-:host ::ng-deep .project-content ul,
-:host ::ng-deep .project-content ol {
-    padding-left: 20px;
     margin: 0
-}
-
-:host ::ng-deep .project-content img {
-    display: block;
-    width: 100%;
-    max-height: 360px;
-    margin-top: 20px;
-    object-fit: cover;
-    border: 1px solid #284139
-}
-
-:host ::ng-deep .project-content pre {
-    overflow-x: auto;
-    padding: 16px;
-    background: #071113;
-    border: 1px solid #263a36;
-    color: #b4d0c5
-}
-
-:host ::ng-deep .project-content .image-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px
 }
 
 .demo {
@@ -240,22 +149,6 @@
         grid-template-columns: 1fr
     }
 
-    :host ::ng-deep .project-content {
-        grid-template-columns: 1fr
-    }
-
-    :host ::ng-deep .project-content .architecture {
-        grid-column: auto
-    }
-
-    :host ::ng-deep .project-content .diagram-section {
-        grid-column: auto
-    }
-
-    :host ::ng-deep .project-content .diagram-section .mermaid {
-        padding: 14px
-    }
-
     .placeholder {
         min-height: 230px
     }
@@ -291,20 +184,7 @@
     line-height: 1.7;
 }
 
-.schematic-viewer {
-    width: 100%;
-    max-width: 400px;
-    height: 100%;
-
-    margin: 0 auto;
-
-    background: #0d191c;
-
-    border: 1px solid #263a36;
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.35);
-}
+// .schematic-viewer moved to weather-monitoring.css: it's only ever rendered
+// inside <app-weather-monitoring>, and (being plain, non ::ng-deep CSS) it
+// never actually reached that child component's DOM from here in the first
+// place — Angular's view encapsulation scopes it to this component only.
