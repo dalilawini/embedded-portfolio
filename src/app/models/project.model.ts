@@ -9,5 +9,4 @@ export interface Project {
     videoUrl?: string;
     imageUrl?: string;
     imageLabel: string;
-    contentUrl?: string;
 }

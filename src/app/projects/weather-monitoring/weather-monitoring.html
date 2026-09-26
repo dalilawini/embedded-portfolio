@@ -1,0 +1,377 @@
+<article class="weather-hardware">
+
+  <!-- HERO -->
+  <header class="hardware-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">HARDWARE ARCHITECTURE</p>
+      <h1>Battery-Powered Environmental Sensor Node</h1>
+      <p class="lead">
+        A compact, battery-powered ESP8266 sensor node combining battery management,
+        controlled power switching, environmental sensing, local diagnostics and
+        wireless telemetry through ESP-NOW.
+      </p>
+
+      <div class="tech-pills">
+        <span>ESP8266</span>
+        <span>DHT11</span>
+        <span>HT4928S</span>
+        <span>AMS1117</span>
+        <span>Li-Ion</span>
+        <span>ESP-NOW</span>
+      </div>
+    </div>
+
+    <div class="hero-flow">
+      <div class="flow-node">DHT11<small>Temperature / Humidity</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node accent">ESP8266<small>Sensor Node</small></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">ESP-NOW<small>Wireless Telemetry</small></div>
+      <div class="flow-arrow">-------</div>
+      <a class="flow-node download" href="/assets/documents/altium.zip" download>Altium project<small>Click to download</small></a>    </div>
+  </header>
+
+  <!-- SYSTEM OVERVIEW -->
+  <section class="hardware-section">
+    <div class="section-heading">
+      <p class="eyebrow">01 / SYSTEM OVERVIEW</p>
+      <h2>Hardware architecture</h2>
+      <p>
+        The node separates power management, sensing and communication into clear
+        functional blocks. The ESP8266 is responsible for acquisition, monitoring,
+        system control and transmission of the sensor data to the ESP32 gateway.
+      </p>
+    </div>
+
+    <article class="architecture-card">
+      <div class="card-label">DATA PATH</div>
+      <div class="mermaid">
+flowchart LR
+    DHT["DHT11<br/>Temperature / Humidity"] -->|"GPIO13"| MCU["ESP8266<br/>Sensor Node"]
+    MCU -->|"JSON payload<br/>via ESP-NOW"| GW["ESP32<br/>Gateway"]
+    GW --> UI["LVGL<br/>Local Display"]
+
+    classDef sensor fill:#101d20,stroke:#3ecf9a,color:#e9fffa,stroke-width:1.5px;
+    classDef mcu fill:#122a2a,stroke:#3ecf9a,color:#ffffff,stroke-width:2px;
+    classDef gateway fill:#101d20,stroke:#6ee7d0,color:#e9fffa,stroke-width:1.5px;
+    classDef ui fill:#101d20,stroke:#78909c,color:#ffffff,stroke-width:1.5px;
+
+    class DHT sensor;
+    class MCU mcu;
+    class GW gateway;
+    class UI ui;
+      </div>
+    </article>
+  </section>
+
+  <!-- POWER -->
+  <section class="hardware-section">
+    <div class="section-heading">
+      <p class="eyebrow">02 / POWER ARCHITECTURE</p>
+      <h2>Managed battery power</h2>
+      <p>
+        The power subsystem is designed around a single lithium battery and combines
+        charging management, a controlled power latch and regulated 3.3 V distribution.
+      </p>
+    </div>
+
+    <article class="diagram-card power-card">
+      <div class="card-label">POWER DOMAIN</div>
+      <div class="mermaid">
+flowchart LR
+    USB["USB / 5 V Input"] --> BMS["HT4928S<br/>Battery Management"]
+    BMS <--> BAT["Li-Ion<br/>Battery"]
+
+    BAT --> SW["Controlled<br/>Power Switch"]
+    BTN["Power Button"] --> SW
+    GPIO5["ESP8266 GPIO5"] --> SW
+
+    SW --> REG["AMS1117<br/>3.3 V Regulator"]
+    REG --> MCU["ESP8266"]
+    REG --> DHT["DHT11"]
+
+    classDef input fill:#151c20,stroke:#78909c,color:#fff;
+    classDef power fill:#172c29,stroke:#3ecf9a,color:#fff,stroke-width:2px;
+    classDef battery fill:#263126,stroke:#a8c66c,color:#fff,stroke-width:2px;
+    classDef control fill:#202027,stroke:#b9a7ff,color:#fff;
+    classDef load fill:#101d20,stroke:#3ecf9a,color:#fff;
+
+    class USB input;
+    class BMS,REG power;
+    class BAT battery;
+    class SW,BTN,GPIO5 control;
+    class MCU,DHT load;
+      </div>
+    </article>
+
+    <div class="feature-grid">
+      <article class="feature-card featured">
+        <span class="feature-index">01</span>
+        <h3>Soft-latching power control</h3>
+        <p>
+          The node uses a transistor as a high-side controlled power switch.
+          At startup, the user holds the physical power button long enough to
+          energize the power path and bring up the BMS, regulator and ESP8266.
+        </p>
+        <div class="sequence">
+          <span>HOLD BUTTON</span>
+          <b>→</b>
+          <span>POWER APPLIED</span>
+          <b>→</b>
+          <span>MCU BOOTS</span>
+          <b>→</b>
+          <span>GPIO5 LATCH</span>
+        </div>
+        <p>
+          Once the MCU has booted, <strong>GPIO5 continuously drives the transistor
+          control path</strong>, allowing the microcontroller to take ownership of
+          the power state. This creates a simple hardware/firmware interface for
+          controlled shutdown.
+        </p>
+      </article>
+
+      <article class="feature-card">
+        <span class="feature-index">02</span>
+        <h3>Battery management</h3>
+        <p>
+          The HT4928S stage interfaces the external 5 V charging source with the
+          lithium battery. Its status outputs are connected to
+          <strong>GPIO14 and GPIO16</strong>, giving the firmware visibility into
+          charging and power-related states.
+        </p>
+        <div class="signal-list">
+          <div><code>GPIO14</code><span>BMS status input</span></div>
+          <div><code>GPIO16</code><span>BMS status input</span></div>
+          <div><code>ADC</code><span>Battery voltage monitoring</span></div>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <span class="feature-index">03</span>
+        <h3>3.3 V power rail</h3>
+        <p>
+          An AMS1117 regulator provides the 3.3 V rail used by the ESP8266 and
+          DHT11 interface, keeping the logic and sensor domain on a common supply.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONNECTIONS -->
+  <section class="hardware-section">
+    <div class="section-heading">
+      <p class="eyebrow">03 / MCU INTERFACES</p>
+      <h2>Electrical connections</h2>
+      <p>
+        The ESP8266 acts as the central controller for sensing, battery monitoring,
+        power control and local diagnostics.
+      </p>
+    </div>
+
+    <article class="diagram-card">
+      <div class="card-label">INTERFACE MAP</div>
+      <div class="mermaid">
+flowchart TB
+    BMS["HT4928S<br/>BMS"] -->|"GPIO14 / GPIO16"| MCU["ESP8266"]
+    BAT["Li-Ion Battery"] -->|"Voltage sensing"| ADC["ADC"]
+    ADC --> MCU
+    DHT["DHT11"] -->|"GPIO13"| MCU
+
+    MCU -->|"GPIO5"| PWR["Power Switch"]
+    MCU -->|"GPIO4"| LED["Status LED"]
+
+    RESET["Reset Button"] --> MCU
+    UART["UART TX / RX<br/>Programming Header"] <--> MCU
+
+    classDef mcu fill:#122a2a,stroke:#3ecf9a,color:#fff,stroke-width:2px;
+    classDef peripheral fill:#111b1e,stroke:#78909c,color:#fff;
+    classDef power fill:#172c29,stroke:#3ecf9a,color:#fff;
+    classDef debug fill:#202027,stroke:#b9a7ff,color:#fff;
+
+    class MCU mcu;
+    class BMS,BAT,DHT,ADC,LED peripheral;
+    class PWR power;
+    class RESET,UART debug;
+      </div>
+    </article>
+
+    <div class="interface-grid">
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>GPIO13</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>DHT11 data</h3>
+        <p>Single-wire digital interface used to acquire temperature and humidity measurements.</p>
+      </article>
+
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>GPIO14 / GPIO16</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>BMS status</h3>
+        <p>Firmware-visible battery-management status signals used to detect charging-related states.</p>
+      </article>
+
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>GPIO5</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>Power control</h3>
+        <p>Maintains the transistor power latch after startup and participates in software-controlled shutdown.</p>
+      </article>
+
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>GPIO4</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>Status LED</h3>
+        <p>Visual feedback for system activity and ESP-NOW communication state.</p>
+      </article>
+
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>ADC</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>Battery monitor</h3>
+        <p>Measures the battery-voltage sensing signal to provide battery-level awareness in firmware.</p>
+      </article>
+
+      <article class="interface-card">
+        <div class="interface-top">
+          <code>UART TX / RX</code>
+          <span class="status-dot"></span>
+        </div>
+        <h3>Programming & debug</h3>
+        <p>A jumper-accessible UART interface is provided for firmware flashing and serial debugging.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTROL / USER INTERACTION -->
+  <section class="hardware-section">
+    <div class="section-heading">
+      <p class="eyebrow">04 / USER & DIAGNOSTICS</p>
+      <h2>Hardware interaction</h2>
+    </div>
+
+    <div class="interaction-layout">
+      <article class="interaction-card">
+        <div class="interaction-number">A</div>
+        <div>
+          <h3>Power button</h3>
+          <p>
+            A physical button provides the initial power-on event. The user holds
+            the button until the MCU becomes operational and assumes control through GPIO5.
+          </p>
+        </div>
+      </article>
+
+      <article class="interaction-card">
+        <div class="interaction-number">B</div>
+        <div>
+          <h3>Reset button</h3>
+          <p>
+            A dedicated reset input provides a direct hardware recovery mechanism
+            during development and normal operation.
+          </p>
+        </div>
+      </article>
+
+      <article class="interaction-card">
+        <div class="interaction-number">C</div>
+        <div>
+          <h3>Status LED</h3>
+          <p>
+            GPIO4 drives a local status indicator. Firmware can toggle the LED during
+            startup and use different patterns to expose ESP-NOW communication state.
+          </p>
+        </div>
+      </article>
+
+      <article class="interaction-card">
+        <div class="interaction-number">D</div>
+        <div>
+          <h3>UART access</h3>
+          <p>
+            A jumper allows TX/RX access to the ESP8266 for firmware programming,
+            bootloader access and serial diagnostics without changing the deployed wiring.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- END-TO-END -->
+  <section class="hardware-section final-section">
+    <div class="section-heading">
+      <p class="eyebrow">05 / END-TO-END ARCHITECTURE</p>
+      <h2>From battery to visualization</h2>
+      <p>
+        The resulting architecture combines power autonomy, local hardware control,
+        environmental acquisition and distributed wireless visualization into one
+        embedded system.
+      </p>
+    </div>
+
+    <article class="end-to-end">
+      <div class="e2e-step">
+        <span>01</span>
+        <strong>POWER</strong>
+        <small>Li-Ion + HT4928S</small>
+      </div>
+      <div class="e2e-line"></div>
+      <div class="e2e-step">
+        <span>02</span>
+        <strong>CONTROL</strong>
+        <small>ESP8266 + power latch</small>
+      </div>
+      <div class="e2e-line"></div>
+      <div class="e2e-step">
+        <span>03</span>
+        <strong>SENSE</strong>
+        <small>DHT11 + battery ADC</small>
+      </div>
+      <div class="e2e-line"></div>
+      <div class="e2e-step">
+        <span>04</span>
+        <strong>TRANSMIT</strong>
+        <small>ESP-NOW + JSON</small>
+      </div>
+      <div class="e2e-line"></div>
+      <div class="e2e-step">
+        <span>05</span>
+        <strong>DISPLAY</strong>
+        <small>ESP32 + LVGL</small>
+      </div>
+    </article>
+
+    <div class="engineering-note">
+      <span class="note-icon">⌁</span>
+      <div>
+        <strong>Engineering focus</strong>
+        <p>
+          The design intentionally keeps the sensor node independent from the display.
+          This reduces coupling between acquisition and visualization and creates a
+          reusable distributed architecture: the ESP8266 focuses on sensing and telemetry,
+          while the ESP32 gateway owns the user interface.
+        </p>
+      </div>
+    </div>
+    <div class="schematic-viewer">
+
+        <ngx-extended-pdf-viewer [src]="'/assets/documents/pcb_schematic.pdf'" [height]="'500px'"
+          [textLayer]="true" [showToolbar]="true" [showSidebarButton]="false" [showFindButton]="false"
+          [showPagingButtons]="true" [showZoomButtons]="true" [showPresentationModeButton]="true"
+          [showDownloadButton]="true" [showPrintButton]="false" [showOpenFileButton]="false"
+          [showPropertiesButton]="false" [zoom]="'page-width'">
+        </ngx-extended-pdf-viewer>
+
+      </div>
+  </section>
+
+</article>

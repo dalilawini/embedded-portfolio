@@ -5,7 +5,8 @@
         <h1>{{ project.title }}</h1>
         <p>{{ project.description }}</p>
         <div class="tags"><span *ngFor="let tag of project.tags">{{ tag }}</span></div>
-        <a *ngIf="project.github" class="github" [href]="project.github" target="_blank" rel="noopener">View source on GitHub ↗</a>
+        <a *ngIf="project.github" class="github" [href]="project.github" target="_blank" rel="noopener">View source on
+            GitHub ↗</a>
     </section>
 
     <section class="placeholder">
@@ -18,16 +19,16 @@
                     allowfullscreen></iframe>
             </div>
         </ng-container>
-        <ng-template #noDemo><h2>Video coming soon</h2></ng-template>
-    </section>
-
-    <section class="content">
-        <div *ngIf="projectContent; else contentStatus" #projectContentHost class="project-content" [innerHTML]="projectContent"></div>
-        <ng-template #contentStatus>
-            <p class="content-status" *ngIf="contentLoadError; else loadingContent">The technical case study could not be loaded.</p>
-            <ng-template #loadingContent><p class="content-status">Loading technical case study…</p></ng-template>
+        <ng-template #noDemo>
+            <h2>Video coming soon</h2>
         </ng-template>
     </section>
+
+      <section class="placeholder">
+
+        <router-outlet></router-outlet>
+
+        </section>
 
     <section class="demo">
         <p class="eyebrow">TUTORIAL</p>
@@ -39,12 +40,17 @@
                     allowfullscreen></iframe>
             </div>
         </ng-container>
-        <ng-template #noTutorial><h2>Video coming soon</h2></ng-template>
+        <ng-template #noTutorial>
+            <h2>Video coming soon</h2>
+        </ng-template>
     </section>
+
 
 
 </ng-container>
 
 <ng-template #missing>
-    <section class="missing"><h1>Project not found</h1><a routerLink="/">Return home</a></section>
+    <section class="missing">
+        <h1>Project not found</h1><a routerLink="/">Return home</a>
+    </section>
 </ng-template>
