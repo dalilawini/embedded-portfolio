@@ -1,0 +1,12 @@
+/*
+ * This component is always rendered inside <app-project-detail>, whose
+ * stylesheet already styles `.project-content`, `.diagram-section`,
+ * `.mermaid`, `.demo`, `.placeholder`, etc. via `:host ::ng-deep`
+ * (see project-detail.component.scss). Those rules pierce into this
+ * component's DOM regardless of Angular's view encapsulation, so this
+ * file previously duplicated all of them verbatim — that duplication has
+ * been removed to avoid the two stylesheets drifting out of sync.
+ *
+ * Only add rules here if they are truly specific to this project's markup
+ * and not already covered by the parent stylesheet.
+ */
